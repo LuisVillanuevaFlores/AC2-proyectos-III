@@ -29,7 +29,7 @@ def metric_c2c(in_tree):
             values[i][j][2] = round(mode, 2)
             values[j][i][2] = round(mode, 2)
 
-    print(values)    
+    print(values)
     return values
 
 
@@ -44,7 +44,6 @@ def c2c(c1, c2, str):
                 if(j[1] in str):
                     # print(j)
                     ver_1.append(j[0])
-    
     for k in c2.keys():
         for l in c2[k]:
             for j in c2[k][l]:
@@ -53,7 +52,6 @@ def c2c(c1, c2, str):
                     # print(j)
                     ver_2.append(j[0])
 
-    
 
     add = Diff(ver_2, ver_1)
     rem = Diff(ver_1, ver_2)
@@ -64,7 +62,7 @@ def c2c(c1, c2, str):
     print(len(ver_2))
     print('--------------')
 
-    return (1 - ((len(add) + len(rem))/(len(ver_1) + len(ver_2)))) * 100
+    return 1
                 # print(j[1])
 
 

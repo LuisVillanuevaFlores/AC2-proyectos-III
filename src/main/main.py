@@ -40,9 +40,11 @@ def download():
 
     cur = os.getcwd()
     try:
+        print("1"*100)
         repo_dir = cur + '/' + github.split('/')[-1].split('.')[0]
         os.chdir(repo_dir)
     except:
+        print("2"*100)
         repo_dir = cur + '\\' + github.split('/')[-1].split('.')[0]
         os.chdir(repo_dir)
 
@@ -69,11 +71,13 @@ def download():
 
         os.chdir(test_dir)
         try:
+            print("R"*100)
             cmdd = 'lcom '+ './' + github.split('/')[-1].split('.')[0] +' > ../static/cohesion_'+github.split('/')[-1].split('.')[0]+'_'+i
             print(test_dir)
             print(cmdd)
             os.system(cmdd)
         except:
+            print("W"*100)
             cmdd = 'lcom '+ '.\\' + github.split('/')[-1].split('.')[0] +' > ..\\static\\cohesion_'+github.split('/')[-1].split('.')[0]+'_'+i + '.txt'
             print(test_dir)
             print(cmdd)
@@ -82,11 +86,11 @@ def download():
         new_dir = github.split('/')[-1].split('.')[0]
         tree = dir_walk(new_dir)
 
-
+        print("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV")
         returned_tree = get_dictionary(tree)
         ulti_tree[str(num)] = tree
         ulti_dict[str(num)] = returned_tree
-
+        print(ulti_tree)
         if debug == 1:
             print(tree)
             print("------------------------------")
@@ -94,8 +98,10 @@ def download():
             print("------------------------------")
         os.chdir(repo_dir)
 
-
-
+    print("A"*100)
+    print(ulti_tree)
+    print("ULTI_DICT")
+    print(ulti_dict)
     os.chdir(cur_dir)
     try:
         pickle.dump( ulti_dict, open( "./directory_map.dat", "wb" ))
