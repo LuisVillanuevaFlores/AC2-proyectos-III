@@ -28,7 +28,6 @@ def new_page():
 @app.route('/download_data', methods=['POST'])
 def download():
     github = request.form['github']
-    print(github)
 
     cmd = "git clone "+github
     cmd2 = 'git tag --sort=committerdate > ../tags'
@@ -40,11 +39,9 @@ def download():
 
     cur = os.getcwd()
     try:
-        print("1"*100)
         repo_dir = cur + '/' + github.split('/')[-1].split('.')[0]
         os.chdir(repo_dir)
     except:
-        print("2"*100)
         repo_dir = cur + '\\' + github.split('/')[-1].split('.')[0]
         os.chdir(repo_dir)
 
@@ -71,22 +68,15 @@ def download():
 
         os.chdir(test_dir)
         try:
-            print("R"*100)
             cmdd = 'lcom '+ './' + github.split('/')[-1].split('.')[0] +' > ../static/cohesion_'+github.split('/')[-1].split('.')[0]+'_'+i
-            print(test_dir)
-            print(cmdd)
             os.system(cmdd)
         except:
-            print("W"*100)
             cmdd = 'lcom '+ '.\\' + github.split('/')[-1].split('.')[0] +' > ..\\static\\cohesion_'+github.split('/')[-1].split('.')[0]+'_'+i + '.txt'
-            print(test_dir)
-            print(cmdd)
             os.system(cmdd)
 
         new_dir = github.split('/')[-1].split('.')[0]
         tree = dir_walk(new_dir)
 
-        print("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV")
         returned_tree = get_dictionary(tree)
         ulti_tree[str(num)] = tree
         ulti_dict[str(num)] = returned_tree
@@ -114,13 +104,15 @@ def download():
     # new_ulti_dict = json.dumps(ulti_dict)
 
     a2a = metric_a2a(ulti_tree)
-    c2c = metric_c2c(ulti_dict)
+    c2c = metric_c2c(ulti_dict, num)
     try:
         pickle.dump( a2a, open( "./metric_a2a.dat", "wb" ))
         pickle.dump( c2c, open( "./metric_c2c.dat", "wb" ))
+        pickle.dump( num, open( "./num.dat", "wb" ))
     except:
         pickle.dump( a2a, open( "metric_a2a.dat", "wb" ))
         pickle.dump( c2c, open( "metric_c2c.dat", "wb" ))
+        pickle.dump( num, open( "num.dat", "wb" ))
 
     return redirect('/run')
 
@@ -148,11 +140,13 @@ def hello_world():
     try:
         metric_a2a = pickle.load( open( "./metric_a2a.dat", "rb" ) )
         metric_c2c = pickle.load( open( "./metric_c2c.dat", "rb" ) )
+        num = pickle.load( open( "./num.dat", "rb" ) )
     except:
         metric_a2a = pickle.load( open( "metric_a2a.dat", "rb" ) )
         metric_c2c = pickle.load( open( "metric_c2c.dat", "rb" ) )
+        num = pickle.load( open( "num.dat", "rb" ) )
 
-    return render_template('index.html', tags = tags, ulti_tree = {'body': ulti_tree} ,ulti_dict = new_ulti_dict, tree = tree, metric_a2a = {'body':metric_a2a}, metric_c2c = {'body':metric_c2c})
+    return render_template('index.html', tags = tags, ulti_tree = {'body': ulti_tree} ,ulti_dict = new_ulti_dict, tree = tree, metric_a2a = {'body':metric_a2a}, metric_c2c = {'body':metric_c2c}, num = num)
 
 def get_dictionary(tree):
 

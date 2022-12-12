@@ -11,16 +11,16 @@ import pickle
 def Diff(li1, li2):
     return (list(list(set(li1)-set(li2))))
 
-def metric_c2c(in_tree):
+def metric_c2c(in_tree, num):
 
     keys = list(in_tree.keys())
     values = {i:{k:{0:0,1:0,2:0} for k in range(len(keys))} for i in range(len(keys))}
 
     for i in range(len(keys)):
         for j in range(i,len(keys)):
-            func = c2c(in_tree[keys[i]], in_tree[keys[j]], ['func', 'funcDef'])
-            clas = c2c(in_tree[keys[i]], in_tree[keys[j]], ['ClassDef'])
-            mode = c2c(in_tree[keys[i]], in_tree[keys[j]], ['module'])
+            func = c2c(in_tree[keys[i]], in_tree[keys[j]], ['func', 'funcDef'], num)
+            clas = c2c(in_tree[keys[i]], in_tree[keys[j]], ['ClassDef'], num)
+            mode = c2c(in_tree[keys[i]], in_tree[keys[j]], ['module'], num)
 
             values[i][j][0] = round(func,2)
             values[j][i][0] = round(func,2)
@@ -34,7 +34,7 @@ def metric_c2c(in_tree):
 
 
 
-def c2c(c1, c2, str):
+def c2c(c1, c2, str, num):
     ver_1 = []
     ver_2 = []
     for k in c1.keys():
@@ -62,9 +62,11 @@ def c2c(c1, c2, str):
     print(len(ver_2))
     print('--------------')
 
+    if num > 1:
+        print("ENTREEEEEEEEE")
+        return (1 - ((len(add) + len(rem))/(len(ver_1) + len(ver_2)))) * 100
+    print("NOOOO")
     return 1
-                # print(j[1])
-
 
 # metric_c2c(new_dict)
 

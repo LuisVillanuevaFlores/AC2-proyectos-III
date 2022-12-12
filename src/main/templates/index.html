@@ -107,15 +107,18 @@
             </div>
 
             <hr>
-
+            {% if num==1 %}
+            <div class="center">
+              <h5 class="text-center">This project only have one version</h3>
+            </div>
+            {% endif %}
             <div id="container">
             </div>
           </div>
         </div>
         <hr>
 
-
-        <div class="row">
+        <div class="row" style="{% if num==1 %} display:none; {% endif %}">
           <div class="col-lg-4">
 
               <button type="button" class="btn btn-danger" id="back2">BACK</button>
@@ -170,11 +173,7 @@
           </div>
         </div>
 
-
       </div>
-
-    
-    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
