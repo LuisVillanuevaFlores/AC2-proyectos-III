@@ -463,7 +463,8 @@ cur_tag = 0;
 var tree = ulti_tree['body'][i+1];
 var calls = ulti_dict[i+1];
 
-
+console.log(tree);
+console.log(calls);
 // Adding the dropdown
 
 //  Creating tags
@@ -478,32 +479,29 @@ for(var i=0; i<tags.length; i++){
 
   var menu = document.getElementById('drop');
   menu.appendChild(dd);
-  
 }
 
 // Setting the tag
 function SetTag(i){
 
-  
   document.getElementById('first_tag').innerHTML = tags[i];
   prev_tag = i;
-  
   display_metric();
-  
+
   tree = ulti_tree['body'][i+1];
   calls = ulti_dict[i+1];
 
   keys = [];
-
+  console.log(tree);
+  console.log(calls);
   cur_sup_files = [];
   stack = [];
 
   for (var k in tree){
     keys.push(k);
   }
-
   let curr = keys[0];
-  root = keys[0];
+  root = keys[0]; // set the root directory
 
   stack.push(keys[0]);
 
@@ -511,40 +509,38 @@ function SetTag(i){
 
 
 }
-SetTag(0);
+SetTag(0); // for default setting tag 0 to display first version
 
 
 function display_metric(){
   console.log(metric_a2a);
   console.log(prev_tag + " " + cur_tag);
-  temp_met = metric_a2a['body'][prev_tag][cur_tag]; 
+  temp_met = metric_a2a['body'][prev_tag][cur_tag];
 
-  temp_metc = metric_c2c['body'][prev_tag][cur_tag]; 
+  temp_metc = metric_c2c['body'][prev_tag][cur_tag];
   // alert(temp_met)
-  
+
   document.getElementById('metric_a2a').innerHTML = "Architectural Similarity: " + temp_met + "%";
   document.getElementById('metric_c2c0').innerHTML = "Functional Similarity: " + temp_metc[0]+ "%";
   document.getElementById('metric_c2c1').innerHTML = "Class Similarity: " + temp_metc[1]+ "%";
   document.getElementById('metric_c2c2').innerHTML = "Module Similarity: " + temp_metc[2]+ "%";
-  
 }
 
 display_metric();
 
-// Get calls 
+// Get calls
 // This is where I have to change 1
 document.getElementById("integ_view0").onclick = function() {
 
   document.getElementById('mast1').style.display = "none";
-  
+
   document.getElementById('mast2').style.display = "block";
   document.getElementById('mast3').style.display = "none";
-  
+
   document.getElementById('mast4').style.display = "none";
-    
+
   var new_data = {'nodes': [], 'edges':[]}
   var completed = [];
-  
 
     cur_sup_files.forEach((file) => {
       console.log(file);
@@ -554,7 +550,6 @@ document.getElementById("integ_view0").onclick = function() {
       // File
       group = file;
 
-      
       // console.log(new_temp);
       // for( var i = 0; i < new_temp.length ; i++){
       //   console.log(new_temp[i]);
@@ -562,15 +557,13 @@ document.getElementById("integ_view0").onclick = function() {
 
       // var node_list = [];
       // var edge_list = [];
-      
 
       for (var key in new_temp) {
+        console.log(key);
         if (new_temp.hasOwnProperty(key)){
           temp_new_dat = Object.values(new_temp[key]);
           console.log(temp_new_dat);
 
-          
-          
           for(var i in temp_new_dat){
             from = key;
             to = temp_new_dat[i][0];
@@ -591,10 +584,6 @@ document.getElementById("integ_view0").onclick = function() {
             console.log(from + " : " + to);
 
 
-
-            
-
-            
              if(type_ == "funcDef"){
 
                   temp_node_dir2 = {id: to, group:'func_Def', normal: {
@@ -615,11 +604,6 @@ document.getElementById("integ_view0").onclick = function() {
                         completed.push(to);
                       }
 
-                     
-                      
-                      
-              
-                  
                   }
 
                   if(type_ == "ClassDef"){
@@ -636,15 +620,13 @@ document.getElementById("integ_view0").onclick = function() {
                           }, shape: "circle"}
 
                           // new_data['nodes'].push(temp_node_dir2);
-                          
 
                           if(completed.indexOf(to) === -1){
                             new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Class Definition", color: "#920be0", shape:"triangle"});
                             completed.push(to);
                           }
 
-                          
-                      
+
                       }
 
                   if(type_ == "func"){
@@ -661,15 +643,12 @@ document.getElementById("integ_view0").onclick = function() {
                       }, shape: "triangle"}
 
                       // new_data['nodes'].push(temp_node_dir2);
-                     
 
                     if(completed.indexOf(to) === -1){
                       new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Function Call", color: "#e27979", shape:"triangle"});
                       completed.push(to);
                     }
 
-                      
-              
                   }
 
                   if(type_ == "module"){
@@ -687,16 +666,11 @@ document.getElementById("integ_view0").onclick = function() {
 
                         // new_data['nodes'].push(temp_node_dir2);
 
-                        
 
                           if(completed.indexOf(to) === -1){
                             new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Module", color: "#e71fc6", shape:"square"});
                             completed.push(to);
                           }
-                        
-                        
-              
-                        
                     }
 
 
@@ -714,18 +688,14 @@ document.getElementById("integ_view0").onclick = function() {
                           }, shape: "square"}
 
                           // new_data['nodes'].push(temp_node_dir2);
-                          
 
                           if(completed.indexOf(to) === -1){
                             new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"File", color: "#c1e04d", shape:"square"});
                             completed.push(to);
                           }
-                          
-                          
 
                       }
 
-            
                     // try {
                     //   new_data['nodes'].push({id: from, physics:false, label: from, size: 5, color: "#000", shape:"square"});
                     // } catch (error) {
@@ -736,7 +706,6 @@ document.getElementById("integ_view0").onclick = function() {
                       new_data['nodes'].push({id: from, physics:false, label: from, size: 5, color: "#999", shape:"square"});
                       completed.push(from);
                     }
-                      
 
             // temp_node_dir = {id: from, group: 'undetermined', normal: {
             //     height: 8,
@@ -753,13 +722,12 @@ document.getElementById("integ_view0").onclick = function() {
 
 
             // temp_edge_dir = {'from': from, 'to':to}
-            new_data['edges'].push({from: from, 
-													to: to, 
+            new_data['edges'].push({from: from,
+													to: to,
 													//label: input_list[j]["label"],
 													font: {align: "middle"},
 													color: "#7e8565",
 													size: 0.5});
-            
 
 
 

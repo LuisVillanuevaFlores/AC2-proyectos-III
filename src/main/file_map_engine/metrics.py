@@ -29,7 +29,6 @@ def metric_c2c(in_tree, num):
             values[i][j][2] = round(mode, 2)
             values[j][i][2] = round(mode, 2)
 
-    print(values)
     return values
 
 
@@ -63,9 +62,7 @@ def c2c(c1, c2, str, num):
     print('--------------')
 
     if num > 1:
-        print("ENTREEEEEEEEE")
         return (1 - ((len(add) + len(rem))/(len(ver_1) + len(ver_2)))) * 100
-    print("NOOOO")
     return 1
 
 # metric_c2c(new_dict)
@@ -81,7 +78,6 @@ def metric_a2a(in_tree):
             values[i][j] = round(temp, 2)
             values[j][i] = round(temp, 2)
 
-    print(values)
     return values
 
 def a2a(a1, a2):
@@ -95,7 +91,7 @@ def aco(a1):
     l1 = list(a1.keys())
     added_folders = Diff(l1, [])
     add_com = 0
-    
+
     for idir in l1:
         files = [i['value'] for i in a1[idir]]
         add_com += len(files)

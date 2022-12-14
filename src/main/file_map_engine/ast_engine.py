@@ -85,6 +85,9 @@ def make_ast(code):
     new_code = re.sub(r'def print("pass")', 'def print("pass"):',  new_code)
 
     tree = ast.parse(new_code)
+
+    print("TRE"*100)
+    print(jsonify_ast(tree))
     return jsonify_ast(tree)
 
 # new_tree = make_ast(code)

@@ -6,7 +6,7 @@ def wrapper_get(tree, test_path):
     objects = module['body']
     get_call_tree(objects, test_path)
     return new_data
-    
+
 def get_call_tree(objects, par):
     for i in objects:
         keys = list(i.keys())
@@ -39,17 +39,14 @@ def get_call_tree(objects, par):
         else:
             if 'body' in list(i[keys[0]].keys()):
                 get_call_tree(i[keys[0]]['body'], par)
-            
+
 def retrieve_inner_imp_fro(obj, from_):
-    
-        
     from_2 = obj['ImportFrom']['module']
-    
     if from_ in new_data.keys():
         new_data[from_].append((from_2, 'module'))
     else:
         new_data[from_] = [(from_2, 'module')]
-        
+
     names = obj['ImportFrom']['names']
     for name in names:
         name_true = name['alias']['name']
@@ -58,9 +55,7 @@ def retrieve_inner_imp_fro(obj, from_):
             new_data[from_2].append((name_true, 'func'))
         else:
             new_data[from_2] = [(name_true, 'func')]
-    
 
-            
 def retrieve_inner_imp(obj, from_):
     names = obj['Import']['names']
     for name in names:
@@ -70,7 +65,6 @@ def retrieve_inner_imp(obj, from_):
             new_data[from_].append((name_true, 'module'))
         else:
             new_data[from_] = [(name_true, 'module')]
-            
 
 def retrieve_inner_functions(obj, from_):
     from_func = obj['FunctionDef']['name']
@@ -95,9 +89,7 @@ def retrieve_inner_expr(obj, from_):
             new_obj = new_obj['Call']
             if list(new_obj.keys())[0] == "func":
                 new_obj = new_obj['func']
-                
-                
-                
+
                 if list(new_obj.keys())[0] == "Attribute":
                     if 'Name' in list(new_obj['Attribute']['value'].keys()):
                         from_2 = new_obj['Attribute']['value']['Name']['id']
@@ -118,9 +110,7 @@ def retrieve_inner_expr(obj, from_):
                     elif 'Attribute' in list(new_obj['Attribute']['value'].keys()):
                         pass
                         # print("\n\n",new_obj['Attribute']['value']['Attribute'].keys(), "\n\n")
-                    
-                    
-                    
+
                 elif list(new_obj.keys())[0] == "Name":
                     if from_ in new_data.keys():
                         if (new_obj['Name']['id'], 'func') not in new_data[from_]:
@@ -128,24 +118,18 @@ def retrieve_inner_expr(obj, from_):
                     else:
                         new_data[from_] = [(new_obj['Name']['id'], 'func')]
                     # print(new_obj['Name']['id'], "called from", from_)
-    
-    
-    
+
 def retrieve_inner_assign(obj, from_):
-    keys = list(obj.keys())    
+    keys = list(obj.keys())
     keys2 = list(obj[keys[0]]['value'].keys())
     new_obj = obj[keys[0]]['value']
     key_ = keys2[0]
-    
     if key_ == 'Call':
         new_obj = new_obj['Call']
         if list(new_obj.keys())[0] == "func":
             new_obj = new_obj['func']
-            
-            
+
 #             print(new_obj.keys())
-            
-            
             if list(new_obj.keys())[0] == "Attribute":
                 if 'Name' in list(new_obj['Attribute']['value'].keys()):
                     from_2 = new_obj['Attribute']['value']['Name']['id']
@@ -170,14 +154,12 @@ def retrieve_inner_assign(obj, from_):
             elif list(new_obj.keys())[0] == "Name":
                 pass
                 # print(new_obj['Name']['id'], "called from", from_)
-                
                 if from_ in new_data.keys():
                     if (new_obj['Name']['id'], 'func') not in new_data[from_]:
                         new_data[from_].append((new_obj['Name']['id'], 'func'))
                 else:
                     new_data[from_] = [(new_obj['Name']['id'], 'func')]
 
-    
 
 
 def retrieve_inner_with(obj, from_):
@@ -189,8 +171,6 @@ def retrieve_inner_with(obj, from_):
     # print(obj[keys[0]]['items'][0]['withitem'].keys())
     # print("\n\n")
 
-    
-    
     try:
         if obj[keys[0]]['items'][0]['withitem']['optional_vars']:
             file_name = obj[keys[0]]['items'][0]['withitem']['optional_vars']['Name']['id']
@@ -199,18 +179,13 @@ def retrieve_inner_with(obj, from_):
     except:
         file_name = "file"
         # print("\n\n")
-    
 #     print(obj[keys[0]]['items'][0]['withitem']['context_expr']['Call']['args'][0]['Constant']['value'])
     # print("\n\n")
-    
+
     if from_ in new_data.keys():
         if (file_name, 'file') not in new_data[from_]:
             new_data[from_].append((file_name, 'file'))
     else:
         new_data[from_] = [(file_name, 'file')]
-    
-    get_call_tree(obj[keys[0]]['body'], from_)
-    
 
-        
-    
+    get_call_tree(obj[keys[0]]['body'], from_)

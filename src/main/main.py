@@ -75,6 +75,8 @@ def download():
             os.system(cmdd)
 
         new_dir = github.split('/')[-1].split('.')[0]
+        print("NEWWWW")
+        print(new_dir)
         tree = dir_walk(new_dir)
 
         returned_tree = get_dictionary(tree)
@@ -135,7 +137,7 @@ def hello_world():
         ulti_tree = pickle.load( open( "./ast_map.dat", "rb" ) )
     except:
         ulti_tree = pickle.load( open( "ast_map.dat", "rb" ) )
-    tags = open('target_repo_dir/tags.txt').readlines()
+    tags = open('target_repo_dir/tags').readlines()
 
     try:
         metric_a2a = pickle.load( open( "./metric_a2a.dat", "rb" ) )
@@ -172,4 +174,4 @@ def get_dictionary(tree):
 
 if __name__ == '__main__':
 
-    app.run(debug = False)
+    app.run(debug = True)
