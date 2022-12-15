@@ -51,7 +51,7 @@
             <div id="menu">
             </div>
           </div>
-          <div class="col-lg-8">
+          <div class="col-lg-8" id="main_container">
             <div class="container mast" id="mast1">
               <span class="PFile"><span id="diamond"></span>&nbsp (.py) File</span>
               <span class="File"><span id="square"></span>&nbsp &nbsp &nbsp File</span>
@@ -536,6 +536,8 @@ function display_metric(){
 
 display_metric();
 
+
+edges_1 = []
 // Get calls
 // This is where I have to change 1
 document.getElementById("integ_view0").onclick = function() {
@@ -783,24 +785,30 @@ document.getElementById("integ_view0").onclick = function() {
       console.log(data);
       var network = new vis.Network(myNode2, data, options);
       console.log(new_data['edges']);
+      edges_1 = new_data['edges'];
 
 }
-let count = 0;
+
+let table_once = 0;
 document.getElementById("table").onclick = function() {
-  count +=1;
-  console.log("ENTREEE", count);
-  container = document.getElementById('container').style.display = "none";
-  if(count % 2 === 0){
-    console.log("HOLAA")
+  if(table_once === 0){
+    const table = document.createElement( 'div' );
+    table.setAttribute("id", "table_graph")
+    table.innerHTML = 'This demo DIV block was';
+    container = document.getElementById('container').style.display = "none";
+    document.getElementById( 'main_container' ).appendChild( table );
+    table_once +=1;
+  }
+  else{
+    document.getElementById('table_graph').remove()
     document.getElementById('container').style.display = "block";
+    table_once =0;
   }
 }
 
 // Back functiom
 document.getElementById("back").onclick = function() {
-    
             prev_lev = stack.pop();
-
             if(prev_lev != root){
                 level(stack.pop(), "container");
             }else{
@@ -809,8 +817,8 @@ document.getElementById("back").onclick = function() {
             // if (prev_lev!=undefined){
             //   level(prev_lev);
             //   curr = prev_lev;
-            // }   
-    }
+            // }
+}
 
 // Adding the directory to view
 function add_directory_to_view(dir_name){
