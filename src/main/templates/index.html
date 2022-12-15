@@ -104,6 +104,9 @@
               <!-- <span class="Class"><span id="square"></span>&nbsp &nbsp &nbsp Class Definition</span> -->
               <span class="Module"><span id="square"></span>&nbsp &nbsp &nbsp Module</span>
             </div>
+            <div class="container mt-3" id="showTable">
+              <button class="ShowTable" id="table"><span id="square"></span>&nbsp &nbsp &nbsp Show in Table</button>
+            </div>
 
             <hr>
             {% if num==1 %}
@@ -289,12 +292,17 @@
       justify-content: space-between;
     }
 
+    .ShowTable{
+      background-color: #340a17;
+      color: white;
+      padding:5px;
+      border-radius: 5px;
+    }
     .PFile{
       background-color: #0099ff;
       color: white;
       padding:5px;
       border-radius: 5px;
-      
     }
 
     .File{
@@ -572,11 +580,11 @@ document.getElementById("integ_view0").onclick = function() {
 
             // if(!(to in completed)){
             //   completed.push(to);
-            //   // new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Function Definition", color: "#0e4efa", shape:"square"});
+            //   // new_data['nodes'].push({id: to, physics:true, label: to, size: 5, title:"Function Definition", color: "#0e4efa", shape:"square"});
             // }
 
             // if(completed.indexOf(to) === -1){
-            //   new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Function Definition", color: "#0e4efa", shape:"square"});
+            //   new_data['nodes'].push({id: to, physics:true, label: to, size: 5, title:"Function Definition", color: "#0e4efa", shape:"square"});
             //   completed.push(to);
             // }
 
@@ -600,7 +608,7 @@ document.getElementById("integ_view0").onclick = function() {
                       // new_data['nodes'].push(temp_node_dir2);
 
                       if(completed.indexOf(to) === -1){
-                        new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Function Definition", color: "#0e4efa", shape:"square"});
+                        new_data['nodes'].push({id: to, physics:true, label: to, size: 8, title:"Function Definition", color: "#0e4efa", shape:"square"});
                         completed.push(to);
                       }
 
@@ -622,7 +630,7 @@ document.getElementById("integ_view0").onclick = function() {
                           // new_data['nodes'].push(temp_node_dir2);
 
                           if(completed.indexOf(to) === -1){
-                            new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Class Definition", color: "#920be0", shape:"triangle"});
+                            new_data['nodes'].push({id: to, physics:true, label: to, size: 15, title:"Class Definition", color: "#920be0", shape:"triangle"});
                             completed.push(to);
                           }
 
@@ -645,7 +653,7 @@ document.getElementById("integ_view0").onclick = function() {
                       // new_data['nodes'].push(temp_node_dir2);
 
                     if(completed.indexOf(to) === -1){
-                      new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Function Call", color: "#e27979", shape:"triangle"});
+                      new_data['nodes'].push({id: to, physics:true, label: to, size: 5, title:"Function Call", color: "#e27979", shape:"triangle"});
                       completed.push(to);
                     }
 
@@ -668,7 +676,7 @@ document.getElementById("integ_view0").onclick = function() {
 
 
                           if(completed.indexOf(to) === -1){
-                            new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Module", color: "#e71fc6", shape:"square"});
+                            new_data['nodes'].push({id: to, physics:true, label: to, size: 5, title:"Module", color: "#e71fc6", shape:"square"});
                             completed.push(to);
                           }
                     }
@@ -690,20 +698,20 @@ document.getElementById("integ_view0").onclick = function() {
                           // new_data['nodes'].push(temp_node_dir2);
 
                           if(completed.indexOf(to) === -1){
-                            new_data['nodes'].push({id: to, physics:false, label: to, size: 5, title:"File", color: "#c1e04d", shape:"square"});
+                            new_data['nodes'].push({id: to, physics:true, label: to, size: 5, title:"File", color: "#c1e04d", shape:"square"});
                             completed.push(to);
                           }
 
                       }
 
                     // try {
-                    //   new_data['nodes'].push({id: from, physics:false, label: from, size: 5, color: "#000", shape:"square"});
+                    //   new_data['nodes'].push({id: from, physics:true, label: from, size: 5, color: "#000", shape:"square"});
                     // } catch (error) {
                     //   console.log(error);
                     // }
 
                     if(completed.indexOf(from) === -1){
-                      new_data['nodes'].push({id: from, physics:false, label: from, size: 5, color: "#999", shape:"square"});
+                      new_data['nodes'].push({id: from, physics:true, label: from, size: 5, color: "#999", shape:"square"});
                       completed.push(from);
                     }
 
@@ -728,10 +736,6 @@ document.getElementById("integ_view0").onclick = function() {
 													font: {align: "middle"},
 													color: "#7e8565",
 													size: 0.5});
-
-
-
-
           }
         }
       }
@@ -742,8 +746,6 @@ document.getElementById("integ_view0").onclick = function() {
     // uniq = [...new Set(new_data['nodes'])];
 
     console.log(new_data['nodes']);
-    
-
 
     var nodes = new vis.DataSet(new_data['nodes']);
     var edges = new vis.DataSet(new_data['edges']);
@@ -778,26 +780,20 @@ document.getElementById("integ_view0").onclick = function() {
         }
       };
 
+      console.log(data);
       var network = new vis.Network(myNode2, data, options);
+      console.log(new_data['edges']);
 
-    //   var chart = anychart.graph(new_data);
-    // // set the container id
-    //   chart.container("container");
-    //   chart.layout().iterationCount(2000);
-    //   // chart.nodes().labels().enabled(true);
-    //   // chart.nodes().labels().fontSize(10);
-    //   // chart.nodes().labels().fontWeight(300);
-    //   // initiate drawing the chart
-    //   chart.nodes().tooltip().useHtml(true);
-    //       chart.nodes().tooltip().format(
-    //         "<span style='font-weight:bold'>{{ '{%id}' }} </span><br>type: {{ '{%group}' }}"
-    //       );
-    //       chart.interactivity().hoverGap(30);  
-    //       chart.edges().tooltip().format("{{ '{%from}' }} -> {{ '{%to}' }}");
-    //   chart.draw();
-    //   chart.title("Integrated View");
-
-
+}
+let count = 0;
+document.getElementById("table").onclick = function() {
+  count +=1;
+  console.log("ENTREEE", count);
+  container = document.getElementById('container').style.display = "none";
+  if(count % 2 === 0){
+    console.log("HOLAA")
+    document.getElementById('container').style.display = "block";
+  }
 }
 
 // Back functiom
@@ -870,7 +866,7 @@ function level(lev, cont, yes_no){
 
     
     if(completed.indexOf(lev) === -1){
-      new_data['nodes'].push({id: lev, physics:false, label: lev, size: 5, title:"Root directory", color: "#cea70a", shape:"triangle"});
+      new_data['nodes'].push({id: lev, physics:true, label: lev, size: 10, title:"Root directory", color: "#cea70a", shape:"triangle"});
       completed.push(lev);
     }
 
@@ -901,7 +897,7 @@ function level(lev, cont, yes_no){
           // new_data['nodes'].push(temp_node_dir);
 
           if(completed.indexOf(temp[k]['value']) === -1){
-            new_data['nodes'].push({id: temp[k]['value'], physics:false, label: temp[k]['value'], size: 5, title:"Directory", color: "#794a04", shape:"triangle"});
+            new_data['nodes'].push({id: temp[k]['value'], physics:true, label: temp[k]['value'], size: 5, title:"Directory", color: "#794a04", shape:"triangle"});
             completed.push(temp[k]['value']);
           }
 
@@ -945,7 +941,7 @@ function level(lev, cont, yes_no){
             // new_data['nodes'].push(temp_node_dir4);
 
             if(completed.indexOf(temp[k]['value']) === -1){
-            new_data['nodes'].push({id: temp[k]['value'], physics:false, label: temp[k]['value'], size: 5, title:"File", color: "#0099ff", shape:"diamond"});
+            new_data['nodes'].push({id: temp[k]['value'], physics:true, label: temp[k]['value'], size: 5, title:"File", color: "#0099ff", shape:"diamond"});
             completed.push(temp[k]['value']);
           }
 
@@ -979,7 +975,7 @@ function level(lev, cont, yes_no){
 
             // new_data['nodes'].push(temp_node_dir4);
           if(completed.indexOf(temp[k]['value']) === -1){
-            new_data['nodes'].push({id: temp[k]['value'], physics:false, label: temp[k]['value'], size: 5, title:"File", color: "#c1e04d", shape:"square"});
+            new_data['nodes'].push({id: temp[k]['value'], physics:true, label: temp[k]['value'], size: 5, title:"File", color: "#c1e04d", shape:"square"});
             completed.push(temp[k]['value']);
           }
 
@@ -1273,7 +1269,7 @@ document.getElementById("integ_view").onclick = function() {
                                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                                 if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"Function Definition", 
                                                                       color: "#0e4efa", shape:"square"});
                                                                     completed.push(to);
@@ -1296,7 +1292,7 @@ document.getElementById("integ_view").onclick = function() {
                                                                     // new_data2['nodes'].push(temp_node_dir2);
 
                                                                     if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"Class Definition", 
                                                                       color: "#920be0", shape:"triangle"});
                                                                     completed.push(to);
@@ -1319,7 +1315,7 @@ document.getElementById("integ_view").onclick = function() {
                                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                                 if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"Function Call", 
                                                                       color: "#e27979", shape:"triangle"});
                                                                     completed.push(to);
@@ -1342,7 +1338,7 @@ document.getElementById("integ_view").onclick = function() {
                                                                   // new_data2['nodes'].push(temp_node_dir2);
 
                                                                   if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"Module", 
                                                                       color: "#e71fc6", shape:"square"});
                                                                     completed.push(to);
@@ -1365,7 +1361,7 @@ document.getElementById("integ_view").onclick = function() {
                                                       // new_data2['nodes'].push(temp_node_dir2);
 
                                                       if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"File", 
                                                                       color: "#c1e04d", shape:"square"});
                                                                     completed.push(to);
@@ -1386,7 +1382,7 @@ document.getElementById("integ_view").onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir);
 
                                                             if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                                       label: from, size: 5, 
                                                                       color: "#999", shape:"square"});
                                                                     completed.push(from);
@@ -1427,7 +1423,7 @@ document.getElementById("integ_view").onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Function Definition", 
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(to);
@@ -1451,7 +1447,7 @@ document.getElementById("integ_view").onclick = function() {
 
                                                                 // new_data2['nodes'].push(temp_node_dir2);
                                                                 if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Class Definition", 
                                                                       color: "#0be016", shape:"triangle"});
                                                                     completed.push(to);
@@ -1474,7 +1470,7 @@ document.getElementById("integ_view").onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Function Call", 
                                                                       color: "#0be016", shape:"triangle"});
                                                                     completed.push(to);
@@ -1497,7 +1493,7 @@ document.getElementById("integ_view").onclick = function() {
                                                               // new_data2['nodes'].push(temp_node_dir2);
 
                                                               if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Module", 
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(to);
@@ -1520,7 +1516,7 @@ document.getElementById("integ_view").onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"File", 
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(to);
@@ -1541,7 +1537,7 @@ document.getElementById("integ_view").onclick = function() {
                                                           // new_data2['nodes'].push(temp_node_dir);
 
                                                           if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                                       label: from, size: 5,
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(from);
@@ -1600,7 +1596,7 @@ document.getElementById("integ_view").onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Function Definition", 
                                                                       color: "#f50a0a", shape:"square"});
                                                                     completed.push(to);
@@ -1625,7 +1621,7 @@ document.getElementById("integ_view").onclick = function() {
                                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                                 if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"class Definition", 
                                                                       color: "#f50a0a", shape:"triangle"});
                                                                     completed.push(to);
@@ -1647,7 +1643,7 @@ document.getElementById("integ_view").onclick = function() {
 
                                                             // new_data2['nodes'].push(temp_node_dir2);
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Function Call", 
                                                                       color: "#f50a0a", shape:"triangle"});
                                                                     completed.push(to);
@@ -1669,7 +1665,7 @@ document.getElementById("integ_view").onclick = function() {
 
                                                               // new_data2['nodes'].push(temp_node_dir2);
                                                               if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Module", 
                                                                       color: "#f50a0a", shape:"square"});
                                                                     completed.push(to);
@@ -1692,7 +1688,7 @@ document.getElementById("integ_view").onclick = function() {
                                                                   // new_data2['nodes'].push(temp_node_dir2);
 
                                                                   if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"File", 
                                                                       color: "#f50a0a", shape:"square"});
                                                                     completed.push(to);
@@ -1713,7 +1709,7 @@ document.getElementById("integ_view").onclick = function() {
                                                         // new_data2['nodes'].push(temp_node_dir);
 
                                                         if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                                       label: from, size: 5,
                                                                       color: "#f50a0a", shape:"square"});
                                                                     completed.push(from);
@@ -1802,7 +1798,7 @@ document.getElementById("integ_view").onclick = function() {
                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                 if(completed.indexOf(to) === -1){
-                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                       label: to, size: 7, title:"Function Definition", 
                                                       color: "#0be016", shape:"square"});
                                                     completed.push(to);
@@ -1825,7 +1821,7 @@ document.getElementById("integ_view").onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir2);
 
                                                     if(completed.indexOf(to) === -1){
-                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                       label: to, size: 7, title:"Class Definition", 
                                                       color: "#0be016", shape:"triangle"});
                                                     completed.push(to);
@@ -1848,7 +1844,7 @@ document.getElementById("integ_view").onclick = function() {
                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                 if(completed.indexOf(to) === -1){
-                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                       label: to, size: 7, title:"Function Call", 
                                                       color: "#0be016", shape:"triangle"});
                                                     completed.push(to);
@@ -1871,7 +1867,7 @@ document.getElementById("integ_view").onclick = function() {
                                                   // new_data2['nodes'].push(temp_node_dir2);
 
                                                   if(completed.indexOf(to) === -1){
-                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                       label: to, size: 7, title:"Module", 
                                                       color: "#0be016", shape:"square"});
                                                     completed.push(to);
@@ -1893,7 +1889,7 @@ document.getElementById("integ_view").onclick = function() {
 
                                             // new_data2['nodes'].push(temp_node_dir2);
                                             if(completed.indexOf(to) === -1){
-                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                       label: to, size: 7, title:"File", 
                                                       color: "#0be016", shape:"square"});
                                                     completed.push(to);
@@ -1914,7 +1910,7 @@ document.getElementById("integ_view").onclick = function() {
                                             // new_data2['nodes'].push(temp_node_dir);
 
                                             if(completed.indexOf(from) === -1){
-                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                       label: from, size: 5,
                                                       color: "#999", shape:"square"});
                                                     completed.push(from);
@@ -2087,7 +2083,7 @@ function level2(lev, cont, yes_no){
             // new_data2['nodes'].push(temp_node_dir);
 
             if(completed.indexOf(lev) === -1){
-              new_data2['nodes'].push({id: lev, physics:false, label: lev, 
+              new_data2['nodes'].push({id: lev, physics:true, label: lev, 
                 size: 5, title:"Root directory", color: "#cea70a", 
                 shape:"triangle"});
               completed.push(lev);
@@ -2131,7 +2127,7 @@ function level2(lev, cont, yes_no){
         // new_data2['nodes'].push(temp_node_dir);
 
         if(completed.indexOf(temp2[kk]['value']) === -1){
-              new_data2['nodes'].push({id: temp2[kk]['value'], physics:false, 
+              new_data2['nodes'].push({id: temp2[kk]['value'], physics:true, 
               label: temp2[kk]['value'], 
                 size: 7, title:"Root directory", 
                 color: "#f50a0a", 
@@ -2176,7 +2172,7 @@ function level2(lev, cont, yes_no){
               // new_data2['nodes'].push(temp_node_dir4);
 
               if(completed.indexOf(temp2[kk]['value']) === -1){
-                new_data2['nodes'].push({id: temp2[kk]['value'], physics:false, 
+                new_data2['nodes'].push({id: temp2[kk]['value'], physics:true, 
                 label: temp2[kk]['value'], 
                   size: 7, title:"Python File", 
                   color: "#f50a0a", 
@@ -2209,7 +2205,7 @@ function level2(lev, cont, yes_no){
               // new_data2['nodes'].push(temp_node_dir4);
 
               if(completed.indexOf(temp2[kk]['value']) === -1){
-                new_data2['nodes'].push({id: temp2[kk]['value'], physics:false, 
+                new_data2['nodes'].push({id: temp2[kk]['value'], physics:true, 
                 label: temp2[kk]['value'], 
                   size: 7, title:"File", 
                   color: "#f50a0a", 
@@ -2257,7 +2253,7 @@ function level2(lev, cont, yes_no){
           // new_data2['nodes'].push(temp_node_dir);
 
           if(completed.indexOf(temp[k]['value']) === -1){
-                new_data2['nodes'].push({id: temp[k]['value'], physics:false, 
+                new_data2['nodes'].push({id: temp[k]['value'], physics:true, 
                 label: temp[k]['value'], 
                   size: 5, title:"Directory", 
                   color: "#794a04", 
@@ -2302,7 +2298,7 @@ function level2(lev, cont, yes_no){
                 // new_data2['nodes'].push(temp_node_dir4);
 
               if(completed.indexOf(temp[k]['value']) === -1){
-                new_data2['nodes'].push({id: temp[k]['value'], physics:false, 
+                new_data2['nodes'].push({id: temp[k]['value'], physics:true, 
                 label: temp[k]['value'], 
                   size: 5, title:"Python File", 
                   color: "#0099ff", 
@@ -2335,7 +2331,7 @@ function level2(lev, cont, yes_no){
                 // new_data2['nodes'].push(temp_node_dir4);
 
               if(completed.indexOf(temp[k]['value']) === -1){
-                new_data2['nodes'].push({id: temp[k]['value'], physics:false, 
+                new_data2['nodes'].push({id: temp[k]['value'], physics:true, 
                 label: temp[k]['value'], 
                   size: 5, title:"File", 
                   color: "#c1e04d", 
@@ -2386,7 +2382,7 @@ if (temp[k]['type'] == 'dir'){
           // new_data2['nodes'].push(temp_node_dir);
 
           if(completed.indexOf(temp[k]['value']) === -1){
-                new_data2['nodes'].push({id: temp[k]['value'], physics:false, 
+                new_data2['nodes'].push({id: temp[k]['value'], physics:true, 
                 label: temp[k]['value'], 
                   size: 7, title:"Directory", 
                   color: "#0be016", 
@@ -2430,7 +2426,7 @@ if (temp[k]['type'] == 'dir'){
                 // new_data2['nodes'].push(temp_node_dir4);
 
                 if(completed.indexOf(temp[k]['value']) === -1){
-                  new_data2['nodes'].push({id: temp[k]['value'], physics:false, 
+                  new_data2['nodes'].push({id: temp[k]['value'], physics:true, 
                   label: temp[k]['value'], 
                     size: 7, title:"Python File", 
                     color: "#0be016", 
@@ -2463,7 +2459,7 @@ if (temp[k]['type'] == 'dir'){
                 // new_data2['nodes'].push(temp_node_dir4);
 
                 if(completed.indexOf(temp[k]['value']) === -1){
-                  new_data2['nodes'].push({id: temp[k]['value'], physics:false, 
+                  new_data2['nodes'].push({id: temp[k]['value'], physics:true, 
                   label: temp[k]['value'], 
                     size: 7, title:"File", 
                     color: "#0be016", 
@@ -2703,7 +2699,7 @@ document.getElementById('collab_view').onclick = function() {
                                                                     // new_data2['nodes'].push(temp_node_dir2);
 
                                                                     if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"Class Definition", 
                                                                       color: "#920be0", shape:"triangle"});
                                                                     completed.push(to);
@@ -2742,7 +2738,7 @@ document.getElementById('collab_view').onclick = function() {
                                                                   // new_data2['nodes'].push(temp_node_dir2);
 
                                                                   if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"Module", 
                                                                       color: "#e71fc6", shape:"square"});
                                                                     completed.push(to);
@@ -2765,7 +2761,7 @@ document.getElementById('collab_view').onclick = function() {
                                                       // new_data2['nodes'].push(temp_node_dir2);
 
                                                       if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 5, title:"File", 
                                                                       color: "#c1e04d", shape:"square"});
                                                                     completed.push(to);
@@ -2788,7 +2784,7 @@ document.getElementById('collab_view').onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir);
 
                                                     if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                                       label: from, size: 5,
                                                                       color: "#999", shape:"square"});
                                                                     completed.push(from);
@@ -2847,7 +2843,7 @@ document.getElementById('collab_view').onclick = function() {
                                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                                 if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Class Definition", 
                                                                       color: "#0be016", shape:"triangle"});
                                                                     completed.push(to);
@@ -2886,7 +2882,7 @@ document.getElementById('collab_view').onclick = function() {
                                                               // new_data2['nodes'].push(temp_node_dir2);
 
                                                               if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Module", 
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(to);
@@ -2909,7 +2905,7 @@ document.getElementById('collab_view').onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"File", 
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(to);
@@ -2932,7 +2928,7 @@ document.getElementById('collab_view').onclick = function() {
                                                           // new_data2['nodes'].push(temp_node_dir);
 
                                                           if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                                       label: from, size: 5,
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(from);
@@ -3010,7 +3006,7 @@ document.getElementById('collab_view').onclick = function() {
                                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                                 if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Class Definition", 
                                                                       color: "#f50a0a", shape:"triangle"});
                                                                     completed.push(to);
@@ -3049,7 +3045,7 @@ document.getElementById('collab_view').onclick = function() {
                                                               // new_data2['nodes'].push(temp_node_dir2);
 
                                                               if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Module", 
                                                                       color: "#f50a0a", shape:"square"});
                                                                     completed.push(to);
@@ -3072,7 +3068,7 @@ document.getElementById('collab_view').onclick = function() {
                                                         // new_data2['nodes'].push(temp_node_dir2);
 
                                                         if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"File", 
                                                                       color: "#f50a0a", shape:"square"});
                                                                     completed.push(to);
@@ -3094,7 +3090,7 @@ document.getElementById('collab_view').onclick = function() {
                                                           // new_data2['nodes'].push(temp_node_dir);
                                                           
                                                           if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                                       label: from, size: 5, 
                                                                       color: "#999", shape:"square"});
                                                                     completed.push(from);
@@ -3199,7 +3195,7 @@ document.getElementById('collab_view').onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir2);
 
                                                     if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Class Definition", 
                                                                       color: "#0be016", shape:"triangle"});
                                                                     completed.push(to);
@@ -3238,7 +3234,7 @@ document.getElementById('collab_view').onclick = function() {
                                                   // new_data2['nodes'].push(temp_node_dir2);
 
                                                   if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"Module", 
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(to);
@@ -3261,7 +3257,7 @@ document.getElementById('collab_view').onclick = function() {
                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, 
+                                                                    new_data2['nodes'].push({id: to, physics:true, 
                                                                       label: to, size: 7, title:"File", 
                                                                       color: "#0be016", shape:"square"});
                                                                     completed.push(to);
@@ -3283,7 +3279,7 @@ document.getElementById('collab_view').onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir);
 
                                                     if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, 
+                                                                    new_data2['nodes'].push({id: from, physics:true, 
                                                                       label: from, size: 5, 
                                                                       color: "#999", shape:"square"});
                                                                     completed.push(from);
@@ -3490,7 +3486,7 @@ document.getElementById('call_view').onclick = function() {
                                                                         // new_data2['nodes'].push(temp_node_dir2);
                                                                         
                                                                         if(completed.indexOf(to) === -1){
-                                                                            new_data2['nodes'].push({id: to, physics:false, label: to, size: 5, title:"Function Definition", color: "#0e4efa", shape:"square"});
+                                                                            new_data2['nodes'].push({id: to, physics:true, label: to, size: 5, title:"Function Definition", color: "#0e4efa", shape:"square"});
                                                                             completed.push(to);
                                                                           }
 
@@ -3527,7 +3523,7 @@ document.getElementById('call_view').onclick = function() {
                                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                                 if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 5, title:"Function Call", color: "#e27979",
                                                                     shape:"triangle"});
                                                                   completed.push(to);
@@ -3566,7 +3562,7 @@ document.getElementById('call_view').onclick = function() {
                                                       // new_data2['nodes'].push(temp_node_dir2);
 
                                                       if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 5, title:"File", color: "#c1e04d",
                                                                     shape:"square"});
                                                                   completed.push(to);
@@ -3587,7 +3583,7 @@ document.getElementById('call_view').onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir);
 
                                                     if(completed.indexOf(from) === -1){
-                                                          new_data2['nodes'].push({id: from, physics:false, label: from,
+                                                          new_data2['nodes'].push({id: from, physics:true, label: from,
                                                           size: 5, color: "#999",
                                                           shape:"square"});
                                                         completed.push(from);
@@ -3627,7 +3623,7 @@ document.getElementById('call_view').onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 7, title:"Function Definition", color: "#0be016",
                                                                     shape:"square"});
                                                                   completed.push(to);
@@ -3666,7 +3662,7 @@ document.getElementById('call_view').onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 7, title:"Function Call", color: "#0be016",
                                                                     shape:"triangle"});
                                                                   completed.push(to);
@@ -3705,7 +3701,7 @@ document.getElementById('call_view').onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 7, title:"File", color: "#0be016",
                                                                     shape:"square"});
                                                                   completed.push(to);
@@ -3727,7 +3723,7 @@ document.getElementById('call_view').onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir);
 
                                                     if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({from: from, physics:false, label: from,
+                                                                    new_data2['nodes'].push({from: from, physics:true, label: from,
                                                                     size: 5, color: "#999",
                                                                     shape:"square"});
                                                                   completed.push(from);
@@ -3784,7 +3780,7 @@ document.getElementById('call_view').onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 7, title:"Function Definition", color: "#f50a0a",
                                                                     shape:"square"});
                                                                   completed.push(to);
@@ -3825,7 +3821,7 @@ document.getElementById('call_view').onclick = function() {
                                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                                             if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 7, title:"Function Call", color: "#f50a0a",
                                                                     shape:"triangle"});
                                                                   completed.push(to);
@@ -3863,7 +3859,7 @@ document.getElementById('call_view').onclick = function() {
 
                                                         // new_data2['nodes'].push(temp_node_dir2);
                                                         if(completed.indexOf(to) === -1){
-                                                                    new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                                    new_data2['nodes'].push({id: to, physics:true, label: to,
                                                                     size: 7, title:"File", color: "#f50a0a",
                                                                     shape:"square"});
                                                                   completed.push(to);
@@ -3884,7 +3880,7 @@ document.getElementById('call_view').onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir);
 
                                                     if(completed.indexOf(from) === -1){
-                                                                    new_data2['nodes'].push({id: from, physics:false, label: from,
+                                                                    new_data2['nodes'].push({id: from, physics:true, label: from,
                                                                     size: 5, color: "#999",
                                                                     shape:"square"});
                                                                   completed.push(from);
@@ -3969,7 +3965,7 @@ document.getElementById('call_view').onclick = function() {
                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                 if(completed.indexOf(to) === -1){
-                                                          new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                          new_data2['nodes'].push({id: to, physics:true, label: to,
                                                           size: 7, title:"Function Definition", color: "#0be016",
                                                           shape:"square"});
                                                         completed.push(to);
@@ -4008,7 +4004,7 @@ document.getElementById('call_view').onclick = function() {
                                                 // new_data2['nodes'].push(temp_node_dir2);
 
                                                 if(completed.indexOf(to) === -1){
-                                                          new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                          new_data2['nodes'].push({id: to, physics:true, label: to,
                                                           size: 7, title:"Function Call", color: "#0be016",
                                                           shape:"triangle"});
                                                         completed.push(to);
@@ -4047,7 +4043,7 @@ document.getElementById('call_view').onclick = function() {
                                             // new_data2['nodes'].push(temp_node_dir2);
 
                                             if(completed.indexOf(to) === -1){
-                                                          new_data2['nodes'].push({id: to, physics:false, label: to,
+                                                          new_data2['nodes'].push({id: to, physics:true, label: to,
                                                           size: 7, title:"File", color: "#0be016",
                                                           shape:"square"});
                                                         completed.push(to);
@@ -4070,7 +4066,7 @@ document.getElementById('call_view').onclick = function() {
                                                     // new_data2['nodes'].push(temp_node_dir);
 
                                                     if(completed.indexOf(from) === -1){
-                                                          new_data2['nodes'].push({id: from, physics:false, label: from,
+                                                          new_data2['nodes'].push({id: from, physics:true, label: from,
                                                           size: 5, color: "white",
                                                           shape:"square"});
                                                         completed.push(from);
@@ -4238,7 +4234,7 @@ document.getElementById('collab_view0').onclick = function() {
 
             if(completed.indexOf(from) === -1){
               new_data['nodes'].push({id: from, 
-              physics:false, label: from, 
+              physics:true, label: from, 
               size: 5, title:"Python File", color: "#0099ff", 
               shape:"square"});
               completed.push(from);
@@ -4279,7 +4275,7 @@ document.getElementById('collab_view0').onclick = function() {
 
                           if(completed.indexOf(to) === -1){
                                 new_data['nodes'].push({id: to, 
-                                physics:false, label: to, 
+                                physics:true, label: to, 
                                 size: 5, title:"Class Definition", color: "#920be0", 
                                 shape:"triangle"});
                                 completed.push(to);
@@ -4319,7 +4315,7 @@ document.getElementById('collab_view0').onclick = function() {
 
                         if(completed.indexOf(to) === -1){
                                 new_data['nodes'].push({id: to, 
-                                physics:false, label: to, 
+                                physics:true, label: to, 
                                 size: 5, title:"Module", color: "#e71fc6", 
                                 shape:"square"});
                                 completed.push(to);
@@ -4344,7 +4340,7 @@ document.getElementById('collab_view0').onclick = function() {
 
                           if(completed.indexOf(to) === -1){
                                 new_data['nodes'].push({id: to, 
-                                physics:false, label: to, 
+                                physics:true, label: to, 
                                 size: 5, title:"File", color: "#c1e04d", 
                                 shape:"square"});
                                 completed.push(to);
@@ -4494,7 +4490,7 @@ document.getElementById('call_view0').onclick = function() {
 
             if(completed.indexOf(from) === -1){
               new_data['nodes'].push({id: from, 
-              physics:false, label: from, 
+              physics:true, label: from, 
               size: 5, title:"Python File", color: "#0099ff", 
               shape:"square"});
               completed.push(from);
@@ -4519,7 +4515,7 @@ document.getElementById('call_view0').onclick = function() {
 
                       if(completed.indexOf(to) === -1){
                                 new_data['nodes'].push({id: to, 
-                                physics:false, label: to, 
+                                physics:true, label: to, 
                                 size: 5, title:"Function Definition", color: "#0e4efa", 
                                 shape:"triangle"});
                                 completed.push(to);
@@ -4559,7 +4555,7 @@ document.getElementById('call_view0').onclick = function() {
 
                       if(completed.indexOf(to) === -1){
                                 new_data['nodes'].push({id: to, 
-                                physics:false, label: to, 
+                                physics:true, label: to, 
                                 size: 5, title:"Function Call", color: "#e27979", 
                                 shape:"triangle"});
                                 completed.push(to);
@@ -4600,7 +4596,7 @@ document.getElementById('call_view0').onclick = function() {
 
                           if(completed.indexOf(to) === -1){
                                 new_data['nodes'].push({id: to, 
-                                physics:false, label: to, 
+                                physics:true, label: to, 
                                 size: 5, title:"File", color: "#c1e04d", 
                                 shape:"square"});
                                 completed.push(to);
