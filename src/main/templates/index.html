@@ -189,6 +189,10 @@
 
   <style>
 
+table, th, td {
+  border:1px solid black;
+}
+
 #diamond {
       width: 0;
       height: 0;
@@ -538,6 +542,7 @@ display_metric();
 
 
 edges_1 = []
+nodes_1 = []
 // Get calls
 // This is where I have to change 1
 document.getElementById("integ_view0").onclick = function() {
@@ -786,15 +791,33 @@ document.getElementById("integ_view0").onclick = function() {
       var network = new vis.Network(myNode2, data, options);
       console.log(new_data['edges']);
       edges_1 = new_data['edges'];
+      nodes_1 = new_data['nodes'];
 
 }
 
 let table_once = 0;
 document.getElementById("table").onclick = function() {
+  nodes_dict = {};
+  for (var i = 0; i<nodes_1.length ; i++){
+    console.log(nodes_1[i]['title']);
+    var label = nodes_1[i]['label'];
+    nodes_dict[label]=nodes_1[i]['title'];
+  }
+  console.log(nodes_dict);
+  let tables = "";
+  tables += "<tr>" + "<th>" + "From" + "</th>" + "<td>" + "to" + "</td>" + "<td>" + "type" + "</td>" + "</tr>";
+  for (var i = 0; i< edges_1.length; i++){
+    tables += "<tr>" + "<th>" + edges_1[i]['from'] + "</th>"  +
+    "<td>" + edges_1[i]['to'] + "</td>" +
+    "<td>" + nodes_dict[edges_1[i]['to']] + "</td>" +
+    "</tr>";
+    console.log(edges_1[i]['from']);
+    console.log(edges_1[i]['to']);
+  }
   if(table_once === 0){
     const table = document.createElement( 'div' );
     table.setAttribute("id", "table_graph")
-    table.innerHTML = 'This demo DIV block was';
+    table.innerHTML = '<table>' + tables + '</table>';
     container = document.getElementById('container').style.display = "none";
     document.getElementById( 'main_container' ).appendChild( table );
     table_once +=1;
