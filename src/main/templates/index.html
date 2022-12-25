@@ -805,7 +805,7 @@ document.getElementById("table").onclick = function() {
   }
   console.log(nodes_dict);
   let tables = "";
-  tables += "<tr>" + "<th>" + "From" + "</th>" + "<td>" + "to" + "</td>" + "<td>" + "type" + "</td>" + "</tr>";
+  tables += "<tr>" + "<th>" + "From" + "</th>" + "<td>" + "To" + "</td>" + "<td>" + "Type" + "</td>" + "</tr>";
   for (var i = 0; i< edges_1.length; i++){
     tables += "<tr>" + "<th>" + edges_1[i]['from'] + "</th>"  +
     "<td>" + edges_1[i]['to'] + "</td>" +
@@ -972,8 +972,8 @@ function level(lev, cont, yes_no){
             // new_data['nodes'].push(temp_node_dir4);
 
             if(completed.indexOf(temp[k]['value']) === -1){
-            new_data['nodes'].push({id: temp[k]['value'], physics:true, label: temp[k]['value'], size: 5, title:"File", color: "#0099ff", shape:"diamond"});
-            completed.push(temp[k]['value']);
+              new_data['nodes'].push({id: temp[k]['value'], physics:true, label: temp[k]['value'], size: 5, title:"File", color: "#0099ff", shape:"diamond"});
+              completed.push(temp[k]['value']);
           }
 
             console.log('File');
