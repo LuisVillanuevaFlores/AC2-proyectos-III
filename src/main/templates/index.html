@@ -53,6 +53,9 @@
           </div>
           <div class="col-lg-8" id="main_container">
             <div class="container mast" id="mast1">
+              <div class="container text-center mb-3 Title">
+                <h4 title="Displays a hierarchical view that describes changes to the directories and file structure of the project">Directory View</h3>
+              </div>
               <span class="PFile"><span id="diamond"></span>&nbsp (.py) File</span>
               <span class="File"><span id="square"></span>&nbsp &nbsp &nbsp File</span>
               <span class="HomeDir"><span id="triangle"></span>&nbsp &nbsp &nbsp Root Directory</span>
@@ -64,6 +67,9 @@
             <!-- Dynamic Labels -->
 
             <div class="container mast2" id="mast2">
+              <div class="container text-center mb-3 Title">
+                <h4 title="It helps the user to understand the interaction between classes and functions for the specific architecture module">Integrated View</h3>
+              </div>
               <span class="PFile"><span id="diamond"></span>&nbsp (.py) File</span>
               <span class="File"><span id="square"></span>&nbsp &nbsp &nbsp File</span>
               <span class="Func"><span id="triangle"></span>&nbsp &nbsp &nbsp Function Call</span>
@@ -73,11 +79,17 @@
               <!-- <span class="HomeDir">Root Directory</span>
               <span class="Directory">Directory</span> -->
               <span class="Module"><span id="square"></span>&nbsp &nbsp &nbsp Module</span>
+              <div class="mt-3" id="showTable">
+                <button class="ShowTable" id="table"><span id="square"></span>&nbsp &nbsp &nbsp Show in Table</button>
+              </div>
               <span class="Added" style="{% if num==1 %} display:none; {% endif %}">Added</span>
               <span class="Deleted" style="{% if num==1 %} display:none; {% endif %}">Deleted</span>
             </div>
 
             <div class="container mast3" id="mast3">
+              <div class="container text-center mb-3 Title">
+                <h4 title="Are generated for a respective directory, in this view is considered files, class definitions and modules">Collaboration Graph View</h3>
+              </div>
               <span class="Module"><span id="square"></span>&nbsp &nbsp &nbsp Module</span>
               <span class="PFile"><span id="square"></span>&nbsp &nbsp &nbsp (.py) File</span>
               <span class="File"><span id="square"></span>&nbsp &nbsp &nbsp File</span>
@@ -97,15 +109,15 @@
               <span class="FuncDef">Function Definition</span>
               <span class="Class">Class Definition</span>
               <span class="Module">Module</span> -->
+              <div class="container text-center mb-3 Title">
+                <h4 title="They are generated for a respective directory, Shows the interaction between subroutines. Consider files, function definitions, and function calls as components">Call Graph View</h3>
+              </div>
               <span class="PFile"><span id="square"></span>&nbsp &nbsp &nbsp (.py) File</span>
               <span class="File"><span id="square"></span>&nbsp &nbsp &nbsp File</span>
               <span class="Func"><span id="triangle"></span>&nbsp &nbsp &nbsp Function Call</span>
               <span class="FuncDef"><span id="square"></span>&nbsp &nbsp &nbsp Function Definition</span>
               <!-- <span class="Class"><span id="square"></span>&nbsp &nbsp &nbsp Class Definition</span> -->
               <span class="Module"><span id="square"></span>&nbsp &nbsp &nbsp Module</span>
-            </div>
-            <div class="container mt-3" id="showTable">
-              <button class="ShowTable" id="table"><span id="square"></span>&nbsp &nbsp &nbsp Show in Table</button>
             </div>
 
             <hr>
@@ -307,6 +319,14 @@ table, th, td {
       color: white;
       padding:5px;
       border-radius: 5px;
+    }
+
+    .Title{
+      background-color: black;
+      color: white;
+      padding:3px;
+      border-radius: 5px;
+      width: 30%;
     }
 
     .File{
